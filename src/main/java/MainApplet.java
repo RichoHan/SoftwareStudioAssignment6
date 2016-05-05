@@ -1,47 +1,84 @@
 package main.java;
 
-import de.looksgood.ani.Ani;
+import java.util.ArrayList;
+
 import processing.core.PApplet;
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 
 /**
 * This class is for sketching outcome using Processing
-* You can do major UI control and some visualization in this class.  
-*/
+* You can do major GUI control and some visualization in this class.  
+**/
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
 	private String path = "main/resources/";
-	private String file = "starwars-episode-1-interactions.json";
+	private String file;
+	
+	private JSONObject data;
+	private JSONArray nodes, links;
+	private ArrayList<Character> characters;
+	private ArrayList<ArrayList> episodes;
 	
 	private final static int width = 1200, height = 650;
-	private int x,y;
+	
 	public void setup() {
-
 		size(width, height);
 		smooth();
 		loadData();
-		Ani.init(this);
-		x = 50;
-		y = 50;
-		
 	}
-	
-	
+
 	public void draw() {
 		background(255);
-		fill(0);
-		ellipse(x,y,100,100);
+	}
+	
+	public void keyPressed() {
 		
 	}
 
-	public void mousePressed(){ 
-		test();
-	}
-	public void test(){
-		Ani.to(this, (float) 0.5, "x", mouseX); 
-		Ani.to(this, (float) 0.5, "y", mouseY); 
-	}
 	private void loadData(){
-
+		// initialize episode
+		episodes = new ArrayList<ArrayList>();
+		
+		// read characters for each episode
+		for (int index = 0; index < 7; index++) {
+			// initialize characters for each episode
+			characters = new ArrayList<Character>();
+			
+			file = new String("starwars-episode-" + index + "-interactions.json");
+			data = loadJSONObject(path + file);
+			nodes = data.getJSONArray("nodes");
+			links = data.getJSONArray("links");
+			
+			int chX = 100;
+			int chY = 50;
+			
+			// read name, color, location for each character
+			for (int i = 0; i < nodes.size(); i++) {
+				JSONObject node = nodes.getJSONObject(i);
+				String name = node.getString("name");
+				String color = node.getString("colour");
+				if (characters.size() % 10 != 0) {
+					characters.add(new Character(this, name, color, chX, chY));
+					chY += 10;
+				} else {
+					characters.add(new Character(this, name, color, chX, chY));
+					chX += 20;
+					chY = 50;
+				}
+			}
+			
+			// read relation for each character
+			for (int i = 0; i < links.size(); i++) {
+				JSONObject link = links.getJSONObject(i);
+				int source = link.getInt("source");
+				int terget = link.getInt("target");
+				/**WTF**/
+			}
+			
+			// add characters to each episode
+			episodes.add(characters);
+		}
 	}
 
 }
