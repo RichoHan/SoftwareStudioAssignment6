@@ -1,5 +1,6 @@
 package main.java;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -12,19 +13,33 @@ public class MainApplet extends PApplet{
 	private String file = "starwars-episode-1-interactions.json";
 	
 	private final static int width = 1200, height = 650;
-	
+	private int x,y;
 	public void setup() {
 
 		size(width, height);
 		smooth();
 		loadData();
+		Ani.init(this);
+		x = 50;
+		y = 50;
+		
+	}
+	
+	
+	public void draw() {
+		background(255);
+		fill(0);
+		ellipse(x,y,100,100);
 		
 	}
 
-	public void draw() {
-
+	public void mousePressed(){ 
+		test();
 	}
-
+	public void test(){
+		Ani.to(this, (float) 0.5, "x", mouseX); 
+		Ani.to(this, (float) 0.5, "y", mouseY); 
+	}
 	private void loadData(){
 
 	}
