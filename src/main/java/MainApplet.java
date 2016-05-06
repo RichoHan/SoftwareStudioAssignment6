@@ -71,6 +71,7 @@ public class MainApplet extends PApplet{
 		for (Character c : characters) {
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+				// if one character is dragged, no other can be dragged
 				if (!isDragged) {
 					isDragged = true;
 					c.setDragged(true);
