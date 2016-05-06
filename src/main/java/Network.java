@@ -33,12 +33,12 @@ public class Network {
 		this.parent.fill(255);
 		this.parent.ellipse(this.centerX, this.centerY, 590, 590);
 	
-		for(Character node : nodes){
+		/*for(Character node : nodes){
 			for(Character o_node : node.getLinks()){
 				this.parent.fill(123);
 				this.parent.line(node.getX(), node.getY(), o_node.getX(), o_node.getY());
 			}
-		}
+		}*/
 	}
 	public void resetNetwork(){
 		nodes.clear();

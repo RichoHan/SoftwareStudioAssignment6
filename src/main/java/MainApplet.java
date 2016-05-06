@@ -20,6 +20,7 @@ public class MainApplet extends PApplet{
 	
 	private int chX, chY;
 	private boolean isDragged;
+	private boolean canPutIn;
 	
 	private ControlP5 cp5;
 	
@@ -28,6 +29,7 @@ public class MainApplet extends PApplet{
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
 	private Network network;
+	private Character tmp = null;
 	
 	private final static int width = 1200, height = 650;
 	
@@ -39,6 +41,8 @@ public class MainApplet extends PApplet{
 		loadData();
 		initButton();
 		initNetwork();
+		this.isDragged = false;
+		this.canPutIn = false;
 	}
 	
 	public void initNetwork(){
@@ -68,29 +72,35 @@ public class MainApplet extends PApplet{
 	
 	public void mouseDragged() {
 		// drag characters
-		for (Character c : characters) {
-			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
-					&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
-				// if one character is dragged, no other can be dragged
-				if (!isDragged) {
+		if(this.isDragged == false){
+			for (Character c : characters) {
+				if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
+						&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+					// if one character is dragged, no other can be dragged
+
 					isDragged = true;
 					c.setDragged(true);
+					tmp = c;
+					System.out.println("zzz");
+					break;
 				}
-				if (c.getDragged()) {
-					c.setX(mouseX);
-					c.setY(mouseY);
-				}
-			}
-			// if the character is dragged into the circle, add to network
-			if (isDragged) {
-				if (mouseX < network.getX()+network.getRadius() 
-						&& mouseX > network.getX()-network.getRadius()
-						&& mouseY < network.getY()+network.getRadius() 
-						&& mouseY > network.getY()-network.getRadius()) {
-					network.addNode(c);
-				}
+				// if the character is dragged into the circle, add to network
 			}
 		}
+		else{
+			tmp.setX(mouseX);
+			tmp.setY(mouseY);
+			if (mouseX < network.getX()+network.getRadius() 
+					&& mouseX > network.getX()-network.getRadius()
+					&& mouseY < network.getY()+network.getRadius() 
+					&& mouseY > network.getY()-network.getRadius()) {
+				this.canPutIn = true;
+			}
+			else{
+				this.canPutIn = false;
+			}
+		}
+		//System.out.println(tmp.getX() +" "+tmp.getY());
 	}
 	
 	
@@ -98,8 +108,12 @@ public class MainApplet extends PApplet{
 	public void mouseReleased() {
 		// reset characters' status
 		isDragged = false;
-		for (Character c : characters) {
-			c.setDragged(false);
+		if(this.canPutIn == true){
+			network.addNode(tmp);
+			tmp.setDragged(false);
+		}
+		else{
+			tmp.initPlace();
 		}
 	}
 	
