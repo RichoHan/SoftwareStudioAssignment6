@@ -36,6 +36,8 @@ public class Character {
 	public void initial_color(){
 		
 		this.links = new ArrayList<Character>();
+		this.ini_x = x;
+		this.ini_y = y;
 		this.r = Integer.parseInt(color.substring(3, 5), 16);
 		this.g = Integer.parseInt(color.substring(5, 7), 16);
 		this.b = Integer.parseInt(color.substring(7, 9), 16);
@@ -79,6 +81,10 @@ public class Character {
 	}
 	public void setDragged(boolean t) {
 		this.isDragged = t;
+	}
+	public void initPlace(){
+		this.x = this.ini_x;
+		this.y = this.ini_y;
 	}
 	
 	public void addLink(Character link){
