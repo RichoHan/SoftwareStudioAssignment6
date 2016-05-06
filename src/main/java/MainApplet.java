@@ -39,9 +39,11 @@ public class MainApplet extends PApplet{
 		initButton();
 		initNetwork();
 	}
+	
 	public void initNetwork(){
 		this.network = new Network(this);
 	}
+	
 	public void draw() {
 		background(255);
 		
