@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -14,6 +15,7 @@ public class Network {
 	
 	private PApplet parent;
 	private int nodeNum;
+	private int centerX,centerY;
 	private ArrayList<Character> nodes;
 	
 	public Network(PApplet parent){
@@ -21,27 +23,46 @@ public class Network {
 		this.nodes = new ArrayList<Character>();
 		this.parent = parent;
 		this.nodeNum = 0;
-		
+		this.centerX = 600;
+		this.centerY = 350;
 	}
 
 	public void display(){
 		this.parent.fill(123,65,98);
-		this.parent.ellipse(600, 350, 600, 600);
+		this.parent.ellipse(this.centerX, this.centerY, 600, 600);
 		this.parent.fill(255);
-		this.parent.ellipse(600, 350, 590, 590);
+		this.parent.ellipse(this.centerX, this.centerY, 590, 590);
+	
+		for(Character node : nodes){
+			for(Character o_node : node.getLinks()){
+				this.parent.fill(123);
+				this.parent.line(node.getX(), node.getY(), o_node.getX(), o_node.getY());
+			}
+		}
 	}
 	public void resetNetwork(){
 		nodes.clear();
 		nodeNum = 0;
 	}
-	
+	//add new node in the network
 	public void addNode(Character c){
 		nodes.add(c);
 		nodeNum += 1;
 		int x = 0;
 		for(Character node : nodes){
-			node.setY(350+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
-			node.setX(600+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+			node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
+			node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+			x+=1;
+		}
+	}
+	
+	public void removeNode(Character c){
+		nodes.remove(c);
+		nodeNum -= 1;
+		int x = 0;
+		for(Character node : nodes){
+			node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
+			node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
 			x+=1;
 		}
 	}
