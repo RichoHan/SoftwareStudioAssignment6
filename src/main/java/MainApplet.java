@@ -81,7 +81,6 @@ public class MainApplet extends PApplet{
 					isDragged = true;
 					c.setDragged(true);
 					tmp = c;
-					//System.out.println("===");
 					break;
 				}
 			}

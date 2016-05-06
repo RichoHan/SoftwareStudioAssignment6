@@ -79,7 +79,6 @@ public class Network {
 		nodeNum -= 1;
 		int x = 0;
 		if(nodes!=null){
-			System.out.println("==");
 			for(Character node : nodes){
 				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
 				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
