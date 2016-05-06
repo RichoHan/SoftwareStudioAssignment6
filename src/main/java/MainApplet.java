@@ -1,11 +1,12 @@
 package main.java;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import controlP5.ControlP5;
-import de.looksgood.ani.Ani;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -17,34 +18,32 @@ import processing.data.JSONObject;
 public class MainApplet extends PApplet{
 	private String path = "main/resources/";
 	private String file;
-	
+	private int level;
 	private int chX, chY;
 	private boolean isDragged;
 	private boolean canPutIn;
 	private boolean isPressedBottom;
 	
 	private ControlP5 cp5;
-	
 	private JSONObject data;
 	private JSONArray nodes, links;
 	private ArrayList<Character> characters;
-	private ArrayList<ArrayList> episodes;
+	private ArrayList<Character> episode;
+	private ArrayList<ArrayList> series;
 	private Network network;
 	private Character tmp = null;
 	
-	private final static int width = 1200, height = 700;
+	private final static int width = 1200, height = 670;
 	
 	public void setup() {
+		this.isDragged = false;
+		this.canPutIn = false;
+		this.level = 1;
 		size(width, height);
-		
-		//Ani.init(this);
 		smooth();
 		loadData();
 		initButton();
 		initNetwork();
-		this.isDragged = false;
-		this.canPutIn = false;
-
 	}
 	
 	public void initNetwork(){
@@ -52,16 +51,20 @@ public class MainApplet extends PApplet{
 	}
 	
 	public void draw() {
+		
+		
 		this.background(255);
+		this.fill(0);
+		this.text("Star War "+this.level, 550, 50);
 		
 		network.display();
 		
-		for(Character c : characters){
+		for(Character c : episode){
 			c.display();
 		}
 		
 		// if the mouse on the character, change the character's size
-		for(Character c : characters){
+		for(Character c : episode){
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
 				c.showName();
@@ -76,7 +79,7 @@ public class MainApplet extends PApplet{
 	public void mouseDragged() {
 		// drag characters
 		if(this.isDragged == false){
-			for (Character c : characters) {
+			for (Character c : episode) {
 				if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 						&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
 					// if one character is dragged, no other can be dragged
@@ -117,38 +120,44 @@ public class MainApplet extends PApplet{
 			tmp.setInNetwork(false);
 			tmp.setDragged(false);
 			tmp.initPlace();
-			System.out.println("==");
 		}
 		// reset characters' status
 		else if(tmp != null && this.canPutIn == false){
 			tmp.initPlace();
 			isDragged = false;
 		}
-		else{
-			
-		}
 	}
 	
+	
 	public void keyPressed() {
-		
+		// use for change episode
+		if (key == '1') level = 1;
+		else if (key == '2') level = 2;
+		else if (key == '3') level = 3;
+		else if (key == '4') level = 4;
+		else if (key == '5') level = 5;
+		else if (key == '6') level = 6;
+		else if (key == '7') level = 7;
+			
+		episode = series.get(level-1);
 	}
 	
 	// add all nodes
 	public void buttonA() {
-		for (Character c : characters) {
-			network.addNode(c);
-			c.setInNetwork(true);
+		for (Character c : episode) {
+			if (!c.getInNetwork()) {
+				network.addNode(c);
+				c.setInNetwork(true);
+			}
 		}
-		this.tmp = null;
 	}
 		
 	// clear nodes
 	public void buttonB() {			
-
 		int count = 0;
 		chX = 50;
 		chY = 50;
-		for (Character c : characters) {
+		for (Character c : episode) {
 			c.setInNetwork(false);
 			c.setX(chX);
 			c.setY(chY);
@@ -175,14 +184,14 @@ public class MainApplet extends PApplet{
 			.setPosition(950, 50)
 			.setSize(200, 50);
 		cp5.addButton("buttonB")
-			.setLabel("Clear Nodes")
+			.setLabel("Clear All Nodes")
 			.setPosition(950, 130)
 			.setSize(200, 50);
 	}
 
 	private void loadData(){
 		// initialize episode
-		episodes = new ArrayList<ArrayList>();
+		series = new ArrayList<ArrayList>();
 		
 		// read characters for each episode
 		for (int index = 1; index <= 7; index++) {
@@ -224,7 +233,10 @@ public class MainApplet extends PApplet{
 			}
 			
 			// add characters to each episode
-			episodes.add(characters);
+			series.add(characters);
+			
+			// show first episode when game start
+			episode = series.get(level-1);
 		}
 	}
 

@@ -2,7 +2,6 @@ package main.java;
 
 import java.util.ArrayList;
 
-import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -16,6 +15,7 @@ public class Network {
 	private PApplet parent;
 	private int nodeNum;
 	private int centerX,centerY;
+	private int radius;
 	private ArrayList<Character> nodes;
 	
 	public Network(PApplet parent){
@@ -25,13 +25,14 @@ public class Network {
 		this.nodeNum = 0;
 		this.centerX = 600;
 		this.centerY = 350;
+		this.radius = 250;
 	}
 
 	public void display(){
 		this.parent.fill(123,65,98);
-		this.parent.ellipse(this.centerX, this.centerY, 600, 600);
+		this.parent.ellipse(this.centerX, this.centerY, this.radius*2, this.radius*2);
 		this.parent.fill(255);
-		this.parent.ellipse(this.centerX, this.centerY, 590, 590);
+		this.parent.ellipse(this.centerX, this.centerY, this.radius*2-10, this.radius*2-10);
 	
 		/*for(Character node : nodes){
 			for(Character o_node : node.getLinks()){
@@ -44,6 +45,7 @@ public class Network {
 		nodes.clear();
 		nodeNum = 0;
 	}
+	
 	//add new node in the network
 	public void addNode(Character c){
 		boolean issame = false;
@@ -59,16 +61,16 @@ public class Network {
 			nodeNum += 1;
 			int x = 0;
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*this.radius);
 				x+=1;
 			}
 		}
 		else{
 			int y = 0;
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*y)*300);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*y)*300);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*y)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*y)*this.radius);
 				y+=1;
 			}
 		}
@@ -80,16 +82,16 @@ public class Network {
 		int x = 0;
 		if(nodes!=null){
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*this.radius);
 				x+=1;
 			}
 		}
 	}
 	
 	// getter 
-	public float getX() { return 600; }
-	public float getY() { return 350; }
+	public float getX() { return this.centerX; }
+	public float getY() { return this.centerY; }
 	public float getRadius() { return 300; }
 	
 }

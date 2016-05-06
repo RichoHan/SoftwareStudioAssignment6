@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Main extends JFrame{
 	
-	private final static int windowWidth = 1200, windowHeight = 700;
+	private final static int windowWidth = 1200, windowHeight = 670;
 	
 	public static void main(String [] args){
 		

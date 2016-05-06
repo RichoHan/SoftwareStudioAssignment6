@@ -56,9 +56,9 @@ public class Character {
 	
 	public void showName() {
 		this.parent.fill(0, 255, 0);
-		this.parent.rect(this.x, this.y, this.width*2, this.width);
+		this.parent.rect(this.x, this.y-30, 150, 30);
 		this.parent.fill(0);
-		this.parent.text(this.name, this.x+20, this.y+20);
+		this.parent.text(this.name, this.x+20, this.y-10);
 	}
 	
 	public void showLink() {
