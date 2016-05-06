@@ -104,8 +104,8 @@ public class MainApplet extends PApplet{
 	}
 	
 	public void mouseReleased() {
-		isDragged = false;
 		// add into network
+		isDragged = false;
 		if(this.canPutIn == true){
 			network.addNode(tmp);
 			tmp.setDragged(false);
@@ -114,7 +114,9 @@ public class MainApplet extends PApplet{
 		// reset characters' status
 		else if(isDragged == true && tmp != null && this.canPutIn == false){
 			tmp.initPlace();
+			isDragged = false;
 		}
+		else;
 	}
 	
 	public void keyPressed() {
@@ -148,6 +150,9 @@ public class MainApplet extends PApplet{
 			count++;
 		}
 		this.network.resetNetwork();
+		isDragged = false;
+		this.tmp = null;
+		this.canPutIn = false;
 	}
 	
 	// initialize buttons
