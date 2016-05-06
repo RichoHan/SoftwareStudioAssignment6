@@ -117,7 +117,7 @@ public class MainApplet extends PApplet{
 			isDragged = false;
 		}
 		else if(isDragged == true && tmp!=null && this.canPutIn == false){
-			isDragged = false;
+			
 			tmp.initPlace();
 		}
 		else;
