@@ -122,6 +122,7 @@ public class MainApplet extends PApplet{
 			}
 			count++;
 		}
+		this.network.resetNetwork();
 	}
 	
 	// initialize buttons
