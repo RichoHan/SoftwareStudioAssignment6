@@ -47,7 +47,7 @@ public class MainApplet extends PApplet{
 		}
 	}
 	public void mousePressed(){
-		
+
 	}
 	
 	public void keyPressed() {
