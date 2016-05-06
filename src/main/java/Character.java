@@ -18,6 +18,7 @@ public class Character {
 	private float width;
 	private ArrayList<Character> links;
 	private int r,g,b;
+	private boolean isDragged;
 
 	public Character(MainApplet parent,String name,String color,float x,float y){
 		
@@ -27,6 +28,7 @@ public class Character {
 		this.x = x;
 		this.y = y;
 		this.width = 50;
+		this.isDragged = false;
 		this.initial_color();
 	}
 	
@@ -62,6 +64,13 @@ public class Character {
 	}
 	public void setY(float y) {
 		this.y = y;
+	}
+	
+	public boolean getDragged() {
+		return this.isDragged;
+	}
+	public void setDragged(boolean t) {
+		this.isDragged = t;
 	}
 	
 	public void addLink(Character link){

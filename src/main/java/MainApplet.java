@@ -19,6 +19,7 @@ public class MainApplet extends PApplet{
 	private String file;
 	
 	private int chX, chY;
+	private boolean isDragged;
 	
 	private ControlP5 cp5;
 	
@@ -70,16 +71,26 @@ public class MainApplet extends PApplet{
 		for (Character c : characters) {
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
-				c.setX(mouseX);
-				c.setY(mouseY);
+				if (!isDragged) {
+					isDragged = true;
+					c.setDragged(true);
+				}
+				if (c.getDragged()) {
+					c.setX(mouseX);
+					c.setY(mouseY);
+				}
 			}
 		}
 	}
 	
 	
 	
-	public void mouseRleased() {
-		
+	public void mouseReleased() {
+		// reset characters' status
+		isDragged = false;
+		for (Character c : characters) {
+			c.setDragged(false);
+		}
 	}
 	
 	public void keyPressed() {
@@ -164,7 +175,7 @@ public class MainApplet extends PApplet{
 				int source = link.getInt("source");
 				int terget = link.getInt("target");
 				
-				System.out.println(source + "=== " +terget);
+				//System.out.println(source + "=== " +terget);
 				
 				Character tmp = characters.get(terget);
 				Character in  = characters.get(source);
