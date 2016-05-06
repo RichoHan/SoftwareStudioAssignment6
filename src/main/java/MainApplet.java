@@ -19,6 +19,7 @@ public class MainApplet extends PApplet{
 	private String file;
 	
 	private int chX, chY;
+	private boolean isDragged;
 	
 	private ControlP5 cp5;
 	
@@ -26,7 +27,6 @@ public class MainApplet extends PApplet{
 	private JSONArray nodes, links;
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
-	
 	
 	private final static int width = 1200, height = 650;
 	
@@ -46,7 +46,7 @@ public class MainApplet extends PApplet{
 			c.display();
 		}
 		
-		
+		// if the mouse on the character, change the character's size
 		for(Character c : characters){
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
@@ -54,7 +54,6 @@ public class MainApplet extends PApplet{
 			} else {
 				c.changeWidth(50);
 			}
-								
 		}
 			
 	}
@@ -70,8 +69,10 @@ public class MainApplet extends PApplet{
 		}
 	}
 	
-	public void mousePressed() {
-
+	
+	
+	public void mouseRleased() {
+		
 	}
 	
 	public void keyPressed() {
@@ -85,7 +86,23 @@ public class MainApplet extends PApplet{
 		
 	// clear nodes
 	public void buttonB() {			
+		int count = 0;
 		
+		chX = 50;
+		chY = 50;
+		
+		for (Character c : characters) {
+			c.setX(chX);
+			c.setY(chY);
+			// 10 characters for each line
+			if (count % 10 != 9) {
+				chY += 60;
+			} else {
+				chX += 60;
+				chY = 50;
+			}
+			count++;
+		}
 	}
 	
 	// initialize buttons
@@ -123,6 +140,7 @@ public class MainApplet extends PApplet{
 				JSONObject node = nodes.getJSONObject(i);
 				String name = node.getString("name");
 				String color = node.getString("colour");
+				// 10 characters for each line
 				if (characters.size() % 10 != 9) {
 					characters.add(new Character(this, name, color, chX, chY));
 					chY += 60;
