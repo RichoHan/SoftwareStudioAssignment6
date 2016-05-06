@@ -21,6 +21,7 @@ public class MainApplet extends PApplet{
 	private int chX, chY;
 	private boolean isDragged;
 	private boolean canPutIn;
+	private boolean isPressedBottom;
 	
 	private ControlP5 cp5;
 	
@@ -43,6 +44,7 @@ public class MainApplet extends PApplet{
 		initNetwork();
 		this.isDragged = false;
 		this.canPutIn = false;
+
 	}
 	
 	public void initNetwork(){
@@ -110,12 +112,21 @@ public class MainApplet extends PApplet{
 			tmp.setDragged(false);
 			tmp.setInNetwork(true);
 		}
+		else if(tmp!=null && tmp.getInNetwork()==true){
+			network.removeNode(tmp);
+			tmp.setInNetwork(false);
+			tmp.setDragged(false);
+			tmp.initPlace();
+			System.out.println("==");
+		}
 		// reset characters' status
-		else if(isDragged == true && tmp != null && this.canPutIn == false){
+		else if(tmp != null && this.canPutIn == false){
 			tmp.initPlace();
 			isDragged = false;
 		}
-		else;
+		else{
+			
+		}
 	}
 	
 	public void keyPressed() {
@@ -128,10 +139,12 @@ public class MainApplet extends PApplet{
 			network.addNode(c);
 			c.setInNetwork(true);
 		}
+		this.tmp = null;
 	}
 		
 	// clear nodes
 	public void buttonB() {			
+
 		int count = 0;
 		chX = 50;
 		chY = 50;

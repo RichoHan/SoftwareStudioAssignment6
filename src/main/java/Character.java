@@ -99,6 +99,9 @@ public class Character {
 	public void setInNetwork(boolean t) {
 		this.inNetwork = t;
 	}
+	public boolean getInNetwork(){
+		return this.inNetwork;
+	}
 	
 	public void initPlace(){
 		this.x = this.ini_x;
