@@ -25,7 +25,7 @@ public class Character {
 		this.color = color;
 		this.x = x;
 		this.y = y;
-		this.width = 60;
+		this.width = 50;
 		this.initial_color();
 	}
 	
@@ -39,10 +39,13 @@ public class Character {
 	public void display(){
 		this.parent.fill(r,g,b);
 		this.parent.ellipse(this.x, this.y, this.width, this.width);
-		
 	}
 	public void changeWidth(float x){
 		this.width = x;
+	}
+	
+	public float getRadius() {
+		return this.width/2;
 	}
 	
 	public float getX(){
@@ -52,6 +55,13 @@ public class Character {
 		return this.y;
 	}
 	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
+	}
 	
 	public void addLink(Character link){
 		this.links.add(link);

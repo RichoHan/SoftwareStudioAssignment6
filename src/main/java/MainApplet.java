@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -20,30 +21,49 @@ public class MainApplet extends PApplet{
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
 	
+	private int chX, chY;
+	
 	private final static int width = 1200, height = 650;
 	
 	public void setup() {
 		size(width, height);
+		Ani.init(this);
 		smooth();
 		loadData();
 	}
 
 	public void draw() {
-		Character tmp;
 		background(255);
-		for(Character c : characters){
+		
+		for (Character c : characters){
 			c.display();
 		}
-		for(Character s : characters){
-			if(mouseX<s.getX()+60 && mouseX>s.getX()-60 && mouseY<s.getY()+60 && mouseY>s.getY()-60){
-				tmp = s;
-				s.changeWidth(70);
+		
+		// if the mouse is on the character, change the character's size
+		for (Character c : characters){
+			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
+				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+				c.changeWidth(60);
+			} else {
+				c.changeWidth(50);
 			}
 		}
 		
 	}
-	public void mousePressed(){
+	
+	public void mousePressed() {
 		
+	}
+	
+	public void mouseDragged() {
+		// drag characters
+		for (Character c : characters) {
+			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
+				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+				c.setX(mouseX);
+				c.setY(mouseY);
+			}
+		}
 	}
 	
 	public void keyPressed() {
@@ -64,20 +84,20 @@ public class MainApplet extends PApplet{
 			nodes = data.getJSONArray("nodes");
 			links = data.getJSONArray("links");
 			
-			int chX = 50;
-			int chY = 50;
+			chX = 50;
+			chY = 50;
 			
 			// read name, color, location for each character
 			for (int i = 0; i < nodes.size(); i++) {
 				JSONObject node = nodes.getJSONObject(i);
 				String name = node.getString("name");
 				String color = node.getString("colour");
-				if (characters.size() % 10 != 0) {
+				if (characters.size() % 10 != 9) {
 					characters.add(new Character(this, name, color, chX, chY));
-					chY += 40;
+					chY += 60;
 				} else {
 					characters.add(new Character(this, name, color, chX, chY));
-					chX += 30;
+					chX += 60;
 					chY = 50;
 				}
 			}
