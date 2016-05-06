@@ -1,5 +1,6 @@
 package main.java;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -20,6 +21,7 @@ public class Character {
 	private ArrayList<Character> links;
 	private int r,g,b;
 	private boolean isDragged;
+	private boolean inNetwork;
 
 	public Character(MainApplet parent,String name,String color,float x,float y){
 		
@@ -30,6 +32,7 @@ public class Character {
 		this.y = y;
 		this.width = 50;
 		this.isDragged = false;
+		this.inNetwork = false;
 		this.initial_color();
 	}
 	
@@ -46,6 +49,9 @@ public class Character {
 	public void display(){
 		this.parent.fill(r,g,b);
 		this.parent.ellipse(this.x, this.y, this.width, this.width);
+		if (this.inNetwork) {
+			this.showLink();
+		}
 	}
 	
 	public void showName() {
@@ -53,6 +59,14 @@ public class Character {
 		this.parent.rect(this.x, this.y, this.width*2, this.width);
 		this.parent.fill(0);
 		this.parent.text(this.name, this.x+20, this.y+20);
+	}
+	
+	public void showLink() {
+		for (Character t : links) {
+			if (t.inNetwork) {
+				this.parent.line(this.x, this.y, t.x, t.y);
+			}
+		}
 	}
 	
 	public void changeWidth(float x){
@@ -82,6 +96,10 @@ public class Character {
 	public void setDragged(boolean t) {
 		this.isDragged = t;
 	}
+	public void setInNetwork(boolean t) {
+		this.inNetwork = t;
+	}
+	
 	public void initPlace(){
 		this.x = this.ini_x;
 		this.y = this.ini_y;
