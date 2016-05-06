@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
+import controlP5.ControlP5;
 import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.data.JSONArray;
@@ -16,20 +17,24 @@ public class MainApplet extends PApplet{
 	private String path = "main/resources/";
 	private String file;
 	
+	private int chX, chY;
+	
+	private ControlP5 cp5;
+	
 	private JSONObject data;
 	private JSONArray nodes, links;
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
 	
-	private int chX, chY;
-	
 	private final static int width = 1200, height = 650;
 	
 	public void setup() {
 		size(width, height);
+		
 		Ani.init(this);
 		smooth();
 		loadData();
+		initButton();
 	}
 
 	public void draw() {
@@ -51,10 +56,6 @@ public class MainApplet extends PApplet{
 		
 	}
 	
-	public void mousePressed() {
-		
-	}
-	
 	public void mouseDragged() {
 		// drag characters
 		for (Character c : characters) {
@@ -68,6 +69,30 @@ public class MainApplet extends PApplet{
 	
 	public void keyPressed() {
 		
+	}
+	
+	// add all nodes
+	public void buttonA() {
+			
+	}
+		
+	// clear nodes
+	public void buttonB() {			
+		for (Character c : characters) {
+		}
+	}
+	
+	// initialize buttons
+	private void initButton() {
+		cp5 = new ControlP5(this);
+		cp5.addButton("buttonA")
+			.setLabel("Add All Nodes")
+			.setPosition(950, 50)
+			.setSize(200, 50);
+		cp5.addButton("buttonB")
+			.setLabel("Clear Nodes")
+			.setPosition(950, 130)
+			.setSize(200, 50);
 	}
 
 	private void loadData(){
