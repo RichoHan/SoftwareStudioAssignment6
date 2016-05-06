@@ -19,7 +19,10 @@ public class Network {
 	}
 
 	public void display(){
-		
+		this.parent.fill(123,65,98);
+		this.parent.ellipse(600, 350, 600, 600);
+		this.parent.fill(255);
+		this.parent.ellipse(600, 350, 590, 590);
 	}
 	
 }
