@@ -161,7 +161,12 @@ public class MainApplet extends PApplet{
 				JSONObject link = links.getJSONObject(i);
 				int source = link.getInt("source");
 				int terget = link.getInt("target");
-				/**WTF**/
+				
+				System.out.println(source + "=== " +terget);
+				
+				Character tmp = characters.get(terget);
+				Character in  = characters.get(source);
+				in.addLink(tmp);
 			}
 			
 			// add characters to each episode
