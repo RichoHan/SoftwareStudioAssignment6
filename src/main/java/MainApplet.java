@@ -108,6 +108,7 @@ public class MainApplet extends PApplet{
 			}
 			count++;
 		}
+		this.network.resetNetwork();
 	}
 	
 	// initialize buttons
@@ -162,7 +163,7 @@ public class MainApplet extends PApplet{
 				int source = link.getInt("source");
 				int terget = link.getInt("target");
 				
-				System.out.println(source + "=== " +terget);
+				//System.out.println(source + "=== " +terget);
 				
 				Character tmp = characters.get(terget);
 				Character in  = characters.get(source);
