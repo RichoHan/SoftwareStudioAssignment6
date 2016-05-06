@@ -14,6 +14,7 @@ public class Character {
 	private String name;
 	private String color;
 	private float x,y;
+	private float width;
 	private ArrayList<Character> links;
 	private int r,g,b;
 
@@ -24,6 +25,7 @@ public class Character {
 		this.color = color;
 		this.x = x;
 		this.y = y;
+		this.width = 60;
 		this.initial_color();
 	}
 	
@@ -36,10 +38,19 @@ public class Character {
 	
 	public void display(){
 		this.parent.fill(r,g,b);
-		this.parent.ellipse(this.x, this.y, (float)60.0, (float)60.0);
+		this.parent.ellipse(this.x, this.y, this.width, this.width);
 		
 	}
+	public void changeWidth(float x){
+		this.width = x;
+	}
 	
+	public float getX(){
+		return this.x;
+	}
+	public float getY(){
+		return this.y;
+	}
 	
 	
 	public void addLink(Character link){

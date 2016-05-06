@@ -29,10 +29,21 @@ public class MainApplet extends PApplet{
 	}
 
 	public void draw() {
+		Character tmp;
 		background(255);
 		for(Character c : characters){
 			c.display();
 		}
+		for(Character s : characters){
+			if(mouseX<s.getX()+60 && mouseX>s.getX()-60 && mouseY<s.getY()+60 && mouseY>s.getY()-60){
+				tmp = s;
+				s.changeWidth(70);
+			}
+		}
+		
+	}
+	public void mousePressed(){
+		
 	}
 	
 	public void keyPressed() {
