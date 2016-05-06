@@ -44,13 +44,7 @@ public class Character {
 	public void changeWidth(float x){
 		this.width = x;
 	}
-	public void changeX(float x){
-		this.x = x;
-	}
-	public void changeY(float y){
-		this.y = y;
-	}
-	
+
 	public float getRadius() {
 		return this.width/2;
 	}

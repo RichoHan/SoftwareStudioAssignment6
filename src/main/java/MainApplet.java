@@ -26,6 +26,7 @@ public class MainApplet extends PApplet{
 	private JSONArray nodes, links;
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
+	private Network network;
 	
 	private final static int width = 1200, height = 650;
 	
@@ -36,10 +37,15 @@ public class MainApplet extends PApplet{
 		smooth();
 		loadData();
 		initButton();
+		initNetwork();
 	}
-
+	public void initNetwork(){
+		this.network = new Network(this);
+	}
 	public void draw() {
 		background(255);
+		
+		network.display();
 		
 		for(Character c : characters){
 			c.display();
