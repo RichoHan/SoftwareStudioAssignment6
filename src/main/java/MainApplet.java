@@ -58,12 +58,12 @@ public class MainApplet extends PApplet{
 		for(Character c : characters){
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+				c.showName();
 				c.changeWidth(60);
 			} else {
 				c.changeWidth(50);
 			}
 		}
-			
 	}
 	
 	public void mouseDragged() {

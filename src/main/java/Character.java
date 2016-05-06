@@ -3,6 +3,7 @@ package main.java;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 
 /**
 * This class is used to store states of the characters in the program.
@@ -44,6 +45,14 @@ public class Character {
 		this.parent.fill(r,g,b);
 		this.parent.ellipse(this.x, this.y, this.width, this.width);
 	}
+	
+	public void showName() {
+		this.parent.fill(0, 255, 0);
+		this.parent.rect(this.x, this.y, this.width*2, this.width);
+		this.parent.fill(0);
+		this.parent.text(this.name, this.x+20, this.y+20);
+	}
+	
 	public void changeWidth(float x){
 		this.width = x;
 	}
