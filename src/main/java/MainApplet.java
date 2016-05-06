@@ -19,7 +19,6 @@ public class MainApplet extends PApplet{
 	private String file;
 	
 	private int chX, chY;
-	private boolean isDragged;
 	
 	private ControlP5 cp5;
 	
