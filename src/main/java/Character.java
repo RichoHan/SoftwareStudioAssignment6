@@ -14,6 +14,7 @@ public class Character {
 	private String name;
 	private String color;
 	private float x,y;
+	private float ini_x,ini_y;
 	private float width;
 	private ArrayList<Character> links;
 	private int r,g,b;
