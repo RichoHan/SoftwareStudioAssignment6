@@ -30,6 +30,9 @@ public class MainApplet extends PApplet{
 
 	public void draw() {
 		background(255);
+		for(Character c : characters){
+			c.display();
+		}
 	}
 	
 	public void keyPressed() {
@@ -41,7 +44,7 @@ public class MainApplet extends PApplet{
 		episodes = new ArrayList<ArrayList>();
 		
 		// read characters for each episode
-		for (int index = 0; index < 7; index++) {
+		for (int index = 1; index <= 7; index++) {
 			// initialize characters for each episode
 			characters = new ArrayList<Character>();
 			
@@ -50,7 +53,7 @@ public class MainApplet extends PApplet{
 			nodes = data.getJSONArray("nodes");
 			links = data.getJSONArray("links");
 			
-			int chX = 100;
+			int chX = 50;
 			int chY = 50;
 			
 			// read name, color, location for each character
@@ -60,10 +63,10 @@ public class MainApplet extends PApplet{
 				String color = node.getString("colour");
 				if (characters.size() % 10 != 0) {
 					characters.add(new Character(this, name, color, chX, chY));
-					chY += 10;
+					chY += 40;
 				} else {
 					characters.add(new Character(this, name, color, chX, chY));
-					chX += 20;
+					chX += 30;
 					chY = 50;
 				}
 			}
