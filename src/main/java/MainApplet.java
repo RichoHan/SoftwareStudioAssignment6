@@ -78,8 +78,7 @@ public class MainApplet extends PApplet{
 		
 	// clear nodes
 	public void buttonB() {			
-		for (Character c : characters) {
-		}
+		
 	}
 	
 	// initialize buttons
