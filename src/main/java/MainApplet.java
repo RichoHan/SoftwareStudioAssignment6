@@ -19,6 +19,8 @@ public class MainApplet extends PApplet{
 	private JSONArray nodes, links;
 	private ArrayList<Character> characters;
 	private ArrayList<ArrayList> episodes;
+	private boolean isChoose;
+	private Character tmp;
 	
 	private final static int width = 1200, height = 650;
 	
@@ -26,21 +28,23 @@ public class MainApplet extends PApplet{
 		size(width, height);
 		smooth();
 		loadData();
+		isChoose = false;
 	}
 
 	public void draw() {
-		Character tmp;
 		background(255);
 		for(Character c : characters){
 			c.display();
 		}
-		for(Character s : characters){
-			if(mouseX<s.getX()+60 && mouseX>s.getX()-60 && mouseY<s.getY()+60 && mouseY>s.getY()-60){
-				tmp = s;
-				s.changeWidth(70);
+		if(this.isChoose == false){
+			for(Character s : characters){
+				if(mouseX<s.getX()+60 && mouseX>s.getX()-60 && mouseY<s.getY()+60 && mouseY>s.getY()-60){
+					tmp = s;
+					s.changeWidth(70);
+					break;
+				}
 			}
 		}
-		
 	}
 	public void mousePressed(){
 		
