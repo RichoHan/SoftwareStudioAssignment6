@@ -21,7 +21,6 @@ public class MainApplet extends PApplet{
 	private int chX, chY;
 	private boolean isDragged;
 	private boolean canPutIn;
-	private boolean canPutOut;
 	
 	private ControlP5 cp5;
 	
@@ -32,19 +31,18 @@ public class MainApplet extends PApplet{
 	private Network network;
 	private Character tmp = null;
 	
-	private final static int width = 1200, height = 650;
+	private final static int width = 1200, height = 700;
 	
 	public void setup() {
 		size(width, height);
 		
-		Ani.init(this);
+		//Ani.init(this);
 		smooth();
 		loadData();
 		initButton();
 		initNetwork();
 		this.isDragged = false;
 		this.canPutIn = false;
-		this.canPutOut = false;
 	}
 	
 	public void initNetwork(){
@@ -52,7 +50,7 @@ public class MainApplet extends PApplet{
 	}
 	
 	public void draw() {
-		background(255);
+		this.background(255);
 		
 		network.display();
 		
@@ -64,12 +62,13 @@ public class MainApplet extends PApplet{
 		for(Character c : characters){
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+				c.showName();
 				c.changeWidth(60);
 			} else {
 				c.changeWidth(50);
 			}
 		}
-			
+		
 	}
 	
 	public void mouseDragged() {
@@ -79,15 +78,14 @@ public class MainApplet extends PApplet{
 				if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 						&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
 					// if one character is dragged, no other can be dragged
-
 					isDragged = true;
 					c.setDragged(true);
 					tmp = c;
 					break;
 				}
-				// if the character is dragged into the circle, add to network
 			}
 		}
+		// if the character is dragged in the circle, add into network
 		else{
 			tmp.setX(mouseX);
 			tmp.setY(mouseY);
@@ -96,57 +94,46 @@ public class MainApplet extends PApplet{
 					&& mouseY < network.getY()+network.getRadius() 
 					&& mouseY > network.getY()-network.getRadius()) {
 				this.canPutIn = true;
-				this.canPutOut = false;
 			}
 			else{
 				this.canPutIn = false;
-				this.canPutOut = true;
 			}
 		}
-		//System.out.println(tmp.getX() +" "+tmp.getY());
 	}
 	
-	
-	
 	public void mouseReleased() {
-		// reset characters' status
+		isDragged = false;
+		// add into network
 		if(this.canPutIn == true){
 			network.addNode(tmp);
 			tmp.setDragged(false);
-			this.canPutIn = false;
-			isDragged = false;
+			tmp.setInNetwork(true);
 		}
-		else if(isDragged == true && tmp!=null && this.canPutIn == false){
-			
+		// reset characters' status
+		else{
 			tmp.initPlace();
 		}
-		else;
-		
-		if(this.canPutOut == true){
-			network.removeNode(tmp);
-			//tmp.setDragged(false);
-			this.canPutOut = false;
-		}
-		else ;
 	}
 	
 	public void keyPressed() {
-		System.out.println(key);
+		
 	}
 	
 	// add all nodes
 	public void buttonA() {
-			
+		for (Character c : characters) {
+			network.addNode(c);
+			c.setInNetwork(true);
+		}
 	}
 		
 	// clear nodes
 	public void buttonB() {			
 		int count = 0;
-		
 		chX = 50;
 		chY = 50;
-		
 		for (Character c : characters) {
+			c.setInNetwork(false);
 			c.setX(chX);
 			c.setY(chY);
 			// 10 characters for each line
@@ -159,8 +146,6 @@ public class MainApplet extends PApplet{
 			count++;
 		}
 		this.network.resetNetwork();
-		this.isDragged = false;
-		this.tmp = null;
 	}
 	
 	// initialize buttons
