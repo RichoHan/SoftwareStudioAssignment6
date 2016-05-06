@@ -81,9 +81,11 @@ public class MainApplet extends PApplet{
 					isDragged = true;
 					c.setDragged(true);
 					tmp = c;
+					//System.out.println("===");
 					break;
 				}
 			}
+		
 		}
 		// if the character is dragged in the circle, add into network
 		else{
