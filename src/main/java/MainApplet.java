@@ -70,7 +70,7 @@ public class MainApplet extends PApplet{
 		// drag characters
 		for (Character c : characters) {
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
-				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
+					&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
 				// if one character is dragged, no other can be dragged
 				if (!isDragged) {
 					isDragged = true;
@@ -79,6 +79,15 @@ public class MainApplet extends PApplet{
 				if (c.getDragged()) {
 					c.setX(mouseX);
 					c.setY(mouseY);
+				}
+			}
+			// if the character is dragged into the circle, add to network
+			if (isDragged) {
+				if (mouseX < network.getX()+network.getRadius() 
+						&& mouseX > network.getX()-network.getRadius()
+						&& mouseY < network.getY()+network.getRadius() 
+						&& mouseY > network.getY()-network.getRadius()) {
+					network.addNode(c);
 				}
 			}
 		}
@@ -95,7 +104,7 @@ public class MainApplet extends PApplet{
 	}
 	
 	public void keyPressed() {
-		
+		System.out.println(key);
 	}
 	
 	// add all nodes
@@ -176,12 +185,9 @@ public class MainApplet extends PApplet{
 				JSONObject link = links.getJSONObject(i);
 				int source = link.getInt("source");
 				int terget = link.getInt("target");
-				
-				//System.out.println(source + "=== " +terget);
-				
-				Character tmp = characters.get(terget);
-				Character in  = characters.get(source);
-				in.addLink(tmp);
+				Character s = characters.get(source);
+				Character t = characters.get(terget);
+				s.addLink(t);
 			}
 			
 			// add characters to each episode

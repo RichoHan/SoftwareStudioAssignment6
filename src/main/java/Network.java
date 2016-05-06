@@ -46,4 +46,9 @@ public class Network {
 		}
 	}
 	
+	// getter 
+	public float getX() { return 600; }
+	public float getY() { return 350; }
+	public float getRadius() { return 300; }
+	
 }

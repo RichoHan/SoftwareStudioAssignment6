@@ -51,7 +51,6 @@ public class Character {
 	public float getRadius() {
 		return this.width/2;
 	}
-	
 	public float getX(){
 		return this.x;
 	}
