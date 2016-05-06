@@ -112,7 +112,7 @@ public class MainApplet extends PApplet{
 			tmp.setInNetwork(true);
 		}
 		// reset characters' status
-		else{
+		else if(isDragged == true && tmp != null && this.canPutIn == false){
 			tmp.initPlace();
 		}
 	}
