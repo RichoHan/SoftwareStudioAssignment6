@@ -46,13 +46,31 @@ public class Network {
 	}
 	//add new node in the network
 	public void addNode(Character c){
-		nodes.add(c);
-		nodeNum += 1;
-		int x = 0;
+		boolean issame = false;
+		
 		for(Character node : nodes){
-			node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
-			node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
-			x+=1;
+			if(node.equals(c)){
+				issame = true;
+				break;
+			}
+		}
+		if(issame == false){
+			nodes.add(c);
+			nodeNum += 1;
+			int x = 0;
+			for(Character node : nodes){
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+				x+=1;
+			}
+		}
+		else{
+			int y = 0;
+			for(Character node : nodes){
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*y)*300);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*y)*300);
+				y+=1;
+			}
 		}
 	}
 	
@@ -60,10 +78,13 @@ public class Network {
 		nodes.remove(c);
 		nodeNum -= 1;
 		int x = 0;
-		for(Character node : nodes){
-			node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
-			node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
-			x+=1;
+		if(nodes!=null){
+			System.out.println("==");
+			for(Character node : nodes){
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*300);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*300);
+				x+=1;
+			}
 		}
 	}
 	
