@@ -19,6 +19,7 @@ public class MainApplet extends PApplet{
 	private String file;
 	
 	private int chX, chY;
+	private boolean isDragged;
 	
 	private ControlP5 cp5;
 	
@@ -39,9 +40,11 @@ public class MainApplet extends PApplet{
 		initButton();
 		initNetwork();
 	}
+	
 	public void initNetwork(){
 		this.network = new Network(this);
 	}
+	
 	public void draw() {
 		background(255);
 		
@@ -68,16 +71,26 @@ public class MainApplet extends PApplet{
 		for (Character c : characters) {
 			if (mouseX < c.getX()+c.getRadius() && mouseX > c.getX()-c.getRadius() 
 				&& mouseY < c.getY()+c.getRadius() && mouseY > c.getY()-c.getRadius()) {
-				c.setX(mouseX);
-				c.setY(mouseY);
+				if (!isDragged) {
+					isDragged = true;
+					c.setDragged(true);
+				}
+				if (c.getDragged()) {
+					c.setX(mouseX);
+					c.setY(mouseY);
+				}
 			}
 		}
 	}
 	
 	
 	
-	public void mouseRleased() {
-		
+	public void mouseReleased() {
+		// reset characters' status
+		isDragged = false;
+		for (Character c : characters) {
+			c.setDragged(false);
+		}
 	}
 	
 	public void keyPressed() {
