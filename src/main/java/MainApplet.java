@@ -109,6 +109,7 @@ public class MainApplet extends PApplet{
 			network.addNode(tmp);
 			tmp.setDragged(false);
 			tmp.setInNetwork(true);
+			this.canPutIn = false;
 			tmp = null;
 		}
 		else if(tmp!=null && tmp.getInNetwork()==true){
@@ -154,7 +155,9 @@ public class MainApplet extends PApplet{
 	// clear nodes
 	public void buttonB() {			
 		int count = 0;
-
+		//tmp = episode.get(0);
+		//Ani.to(this, , thePropertyList)
+		
 		for (Character c : episode) {
 			c.setInNetwork(false);
 			c.setX(c.getIniX());
