@@ -51,7 +51,7 @@ public class MainApplet extends PApplet{
 		this.background(255);
 		this.fill(0);
 		this.textSize(50);
-		this.text("Star War "+this.level, 470, 70);
+		this.text("Star War "+this.level, 475, 65);
 		
 		network.display();
 		
