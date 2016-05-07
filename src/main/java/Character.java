@@ -110,6 +110,12 @@ public class Character {
 		this.x = this.ini_x;
 		this.y = this.ini_y;
 	}
+	public float getIniX(){
+		return this.ini_x;
+	}
+	public float getIniY(){
+		return this.ini_y;
+	}
 	
 	public void addLink(Character link, int interaction){
 		this.links.put(link, interaction);

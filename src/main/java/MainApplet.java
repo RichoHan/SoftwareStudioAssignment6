@@ -3,7 +3,7 @@ package main.java;
 import java.util.ArrayList;
 
 import controlP5.ControlP5;
-
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -109,30 +109,33 @@ public class MainApplet extends PApplet{
 			network.addNode(tmp);
 			tmp.setDragged(false);
 			tmp.setInNetwork(true);
+			tmp = null;
 		}
 		else if(tmp!=null && tmp.getInNetwork()==true){
 			network.removeNode(tmp);
 			tmp.setInNetwork(false);
 			tmp.setDragged(false);
 			tmp.initPlace();
+			tmp = null;
 		}
 		// reset characters' status
 		else if(tmp != null && this.canPutIn == false){
 			tmp.initPlace();
 			isDragged = false;
+			tmp = null;
 		}
 	}
 	
 	
 	public void keyPressed() {
 		// use for change episode
-		if (key == '1') level = 1;
-		else if (key == '2') level = 2;
-		else if (key == '3') level = 3;
-		else if (key == '4') level = 4;
-		else if (key == '5') level = 5;
-		else if (key == '6') level = 6;
-		else if (key == '7') level = 7;
+		if (key == '1'){level = 1;this.network.resetNetwork();}
+		else if (key == '2') {level = 2;this.network.resetNetwork();}
+		else if (key == '3') {level = 3;this.network.resetNetwork();}
+		else if (key == '4') {level = 4;this.network.resetNetwork();}
+		else if (key == '5') {level = 5;this.network.resetNetwork();}
+		else if (key == '6') {level = 6;this.network.resetNetwork();}
+		else if (key == '7') {level = 7;this.network.resetNetwork();}
 		
 		// show episode for now level
 		episode = series.get(level-1);
@@ -151,20 +154,11 @@ public class MainApplet extends PApplet{
 	// clear nodes
 	public void buttonB() {			
 		int count = 0;
-		chX = 50;
-		chY = 50;
+
 		for (Character c : episode) {
 			c.setInNetwork(false);
-			c.setX(chX);
-			c.setY(chY);
-			// 10 characters for each line
-			if (count % 10 != 9) {
-				chY += 60;
-			} else {
-				chX += 60;
-				chY = 50;
-			}
-			count++;
+			c.setX(c.getIniX());
+			c.setY(c.getIniY());
 		}
 		this.network.resetNetwork();
 		this.isDragged = false;

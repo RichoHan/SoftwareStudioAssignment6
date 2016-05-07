@@ -35,12 +35,6 @@ public class Network {
 		this.parent.fill(255);
 		this.parent.ellipse(this.centerX, this.centerY, this.radius*2-10, this.radius*2-10);
 	
-		/*for(Character node : nodes){
-			for(Character o_node : node.getLinks()){
-				this.parent.fill(123);
-				this.parent.line(node.getX(), node.getY(), o_node.getX(), o_node.getY());
-			}
-		}*/
 	}
 	public void resetNetwork(){
 		nodes.clear();
@@ -62,16 +56,16 @@ public class Network {
 			nodeNum += 1;
 			int x = 0;
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*this.radius);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*this.radius);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians((double)360/nodeNum)*x)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				x+=1;
 			}
 		}
 		else{
 			int y = 0;
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*y)*this.radius);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*y)*this.radius);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians((double)360/(double)nodeNum)*y)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians((double)360/(double)nodeNum)*y)*this.radius);
 				y+=1;
 			}
 		}
@@ -83,8 +77,8 @@ public class Network {
 		int x = 0;
 		if(nodes!=null){
 			for(Character node : nodes){
-				node.setY(this.centerY+(float)Math.sin(Math.toRadians(360/nodeNum)*x)*this.radius);
-				node.setX(this.centerX+(float)Math.cos(Math.toRadians(360/nodeNum)*x)*this.radius);
+				node.setY(this.centerY+(float)Math.sin(Math.toRadians((double)360/nodeNum)*x)*this.radius);
+				node.setX(this.centerX+(float)Math.cos(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				x+=1;
 			}
 		}
