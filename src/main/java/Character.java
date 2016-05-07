@@ -13,7 +13,7 @@ public class Character {
 	private MainApplet parent;
 	private String name;
 	private String color;
-	private float x,y;
+	public float x,y;
 	private float ini_x,ini_y;
 	private float width;
 	private HashMap<Character, Integer> links;

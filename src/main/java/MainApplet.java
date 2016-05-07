@@ -29,7 +29,7 @@ public class MainApplet extends PApplet{
 	private ArrayList<ArrayList> series;
 	private Network network;
 	private Character tmp = null;
-	
+
 	private final static int width = 1200, height = 670;
 	
 	public void setup() {
@@ -41,6 +41,7 @@ public class MainApplet extends PApplet{
 		loadData();
 		initButton();
 		initNetwork();
+		Ani.init(this);
 	}
 	
 	public void initNetwork(){
@@ -153,15 +154,12 @@ public class MainApplet extends PApplet{
 	}
 		
 	// clear nodes
-	public void buttonB() {			
-		int count = 0;
-		//tmp = episode.get(0);
-		//Ani.to(this, , thePropertyList)
+	public void buttonB() {
 		
 		for (Character c : episode) {
 			c.setInNetwork(false);
-			c.setX(c.getIniX());
-			c.setY(c.getIniY());
+			Ani.to(c, (float)1, "x", c.getIniX(),Ani.LINEAR);
+			Ani.to(c, (float)1, "y", c.getIniY(),Ani.LINEAR);
 		}
 		this.network.resetNetwork();
 		this.isDragged = false;
