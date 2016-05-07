@@ -1,12 +1,10 @@
 package main.java;
 
-import java.awt.Font;
 import java.util.ArrayList;
 
 import controlP5.ControlP5;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -22,7 +20,6 @@ public class MainApplet extends PApplet{
 	private int chX, chY;
 	private boolean isDragged;
 	private boolean canPutIn;
-	private boolean isPressedBottom;
 	
 	private ControlP5 cp5;
 	private JSONObject data;
@@ -51,11 +48,10 @@ public class MainApplet extends PApplet{
 	}
 	
 	public void draw() {
-		
-		
 		this.background(255);
 		this.fill(0);
-		this.text("Star War "+this.level, 550, 50);
+		this.textSize(50);
+		this.text("Star War "+this.level, 470, 70);
 		
 		network.display();
 		
@@ -73,7 +69,6 @@ public class MainApplet extends PApplet{
 				c.changeWidth(50);
 			}
 		}
-		
 	}
 	
 	public void mouseDragged() {
@@ -138,7 +133,8 @@ public class MainApplet extends PApplet{
 		else if (key == '5') level = 5;
 		else if (key == '6') level = 6;
 		else if (key == '7') level = 7;
-			
+		
+		// show episode for now level
 		episode = series.get(level-1);
 	}
 	
@@ -171,7 +167,7 @@ public class MainApplet extends PApplet{
 			count++;
 		}
 		this.network.resetNetwork();
-		isDragged = false;
+		this.isDragged = false;
 		this.tmp = null;
 		this.canPutIn = false;
 	}
@@ -226,10 +222,11 @@ public class MainApplet extends PApplet{
 			for (int i = 0; i < links.size(); i++) {
 				JSONObject link = links.getJSONObject(i);
 				int source = link.getInt("source");
-				int terget = link.getInt("target");
+				int target = link.getInt("target");
+				int value = link.getInt("value");
 				Character s = characters.get(source);
-				Character t = characters.get(terget);
-				s.addLink(t);
+				Character t = characters.get(target);
+				s.addLink(t, value);
 			}
 			
 			// add characters to each episode

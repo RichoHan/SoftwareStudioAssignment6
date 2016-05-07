@@ -1,10 +1,8 @@
 package main.java;
 
-import java.awt.Font;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import processing.core.PApplet;
-import processing.core.PFont;
 
 /**
 * This class is used to store states of the characters in the program.
@@ -18,7 +16,7 @@ public class Character {
 	private float x,y;
 	private float ini_x,ini_y;
 	private float width;
-	private ArrayList<Character> links;
+	private HashMap<Character, Integer> links;
 	private int r,g,b;
 	private boolean isDragged;
 	private boolean inNetwork;
@@ -38,7 +36,7 @@ public class Character {
 	
 	public void initial_color(){
 		
-		this.links = new ArrayList<Character>();
+		this.links = new HashMap<Character, Integer>();
 		this.ini_x = x;
 		this.ini_y = y;
 		this.r = Integer.parseInt(color.substring(3, 5), 16);
@@ -47,6 +45,7 @@ public class Character {
 	}
 	
 	public void display(){
+		this.parent.strokeWeight(1);
 		this.parent.fill(r,g,b);
 		this.parent.ellipse(this.x, this.y, this.width, this.width);
 		if (this.inNetwork) {
@@ -55,15 +54,19 @@ public class Character {
 	}
 	
 	public void showName() {
+		this.parent.strokeWeight(1);
 		this.parent.fill(0, 255, 0);
-		this.parent.rect(this.x, this.y-30, 150, 30);
+		this.parent.rect(this.x, this.y-40, 200, 30);
 		this.parent.fill(0);
-		this.parent.text(this.name, this.x+20, this.y-10);
+		this.parent.textSize(13);
+		this.parent.text(this.name, this.x+20, this.y-20);
 	}
 	
 	public void showLink() {
-		for (Character t : links) {
+		for (Character t : links.keySet()) {
 			if (t.inNetwork) {
+				// the more interaction, the line has the more weight
+				this.parent.strokeWeight(links.get(t)/2);
 				this.parent.line(this.x, this.y, t.x, t.y);
 			}
 		}
@@ -108,11 +111,11 @@ public class Character {
 		this.y = this.ini_y;
 	}
 	
-	public void addLink(Character link){
-		this.links.add(link);
+	public void addLink(Character link, int interaction){
+		this.links.put(link, interaction);
 	}
 	
-	public ArrayList<Character> getLinks(){
+	public HashMap<Character, Integer> getLinks(){
 		return this.links;
 	}
 	

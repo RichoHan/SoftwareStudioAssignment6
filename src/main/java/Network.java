@@ -29,6 +29,7 @@ public class Network {
 	}
 
 	public void display(){
+		this.parent.strokeWeight(1);
 		this.parent.fill(123,65,98);
 		this.parent.ellipse(this.centerX, this.centerY, this.radius*2, this.radius*2);
 		this.parent.fill(255);
