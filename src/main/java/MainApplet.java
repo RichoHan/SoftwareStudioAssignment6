@@ -3,6 +3,9 @@ package main.java;
 import java.util.ArrayList;
 
 import controlP5.ControlP5;
+import ddf.minim.AudioOutput;
+import ddf.minim.AudioPlayer;
+import ddf.minim.Minim;
 import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.data.JSONArray;
@@ -20,7 +23,10 @@ public class MainApplet extends PApplet{
 	private int chX, chY;
 	private boolean isDragged;
 	private boolean canPutIn;
+	private boolean btAFocused, btBFocused;
 	
+	private Minim minim;
+	private AudioOutput sound;
 	private ControlP5 cp5;
 	private JSONObject data;
 	private JSONArray nodes, links;
@@ -33,6 +39,8 @@ public class MainApplet extends PApplet{
 	private final static int width = 1200, height = 670;
 	
 	public void setup() {
+		this.btAFocused = true;
+		this.btBFocused = true;
 		this.isDragged = false;
 		this.canPutIn = false;
 		this.level = 1;
@@ -41,11 +49,36 @@ public class MainApplet extends PApplet{
 		loadData();
 		initButton();
 		initNetwork();
+		initSound();
 		Ani.init(this);
 	}
 	
-	public void initNetwork(){
+	// initialize buttons
+	private void initButton() {
+		cp5 = new ControlP5(this);
+		cp5.addButton("buttonA")
+			.setLabel("Add All Nodes")
+			.setPosition(950, 50)
+			.setSize(200, 50);
+		cp5.addButton("buttonB")
+			.setLabel("Clear All Nodes")
+			.setPosition(950, 130)
+			.setSize(200, 50);
+	}
+	
+	// initialize network
+	public void initNetwork() {
 		this.network = new Network(this);
+	}
+	
+	// initialize sound
+	public void initSound() {
+		this.minim = new Minim(this);
+		this.sound = minim.getLineOut();
+	}
+	
+	public void playSound(String noteName) {
+		this.sound.playNote((float)0, (float)0.3, noteName);
 	}
 	
 	public void draw() {
@@ -107,6 +140,7 @@ public class MainApplet extends PApplet{
 		// add into network
 		isDragged = false;
 		if(this.canPutIn == true){
+			this.playSound("C");
 			network.addNode(tmp);
 			tmp.setDragged(false);
 			tmp.setInNetwork(true);
@@ -131,13 +165,13 @@ public class MainApplet extends PApplet{
 	
 	public void keyPressed() {
 		// use for change episode
-		if (key == '1'){level = 1;this.network.resetNetwork();}
-		else if (key == '2') {level = 2;this.network.resetNetwork();}
-		else if (key == '3') {level = 3;this.network.resetNetwork();}
-		else if (key == '4') {level = 4;this.network.resetNetwork();}
-		else if (key == '5') {level = 5;this.network.resetNetwork();}
-		else if (key == '6') {level = 6;this.network.resetNetwork();}
-		else if (key == '7') {level = 7;this.network.resetNetwork();}
+		if (key == '1'){level = 1;this.network.resetNetwork();this.playSound("C");}
+		else if (key == '2') {level = 2;this.network.resetNetwork();this.playSound("D");}
+		else if (key == '3') {level = 3;this.network.resetNetwork();this.playSound("E");}
+		else if (key == '4') {level = 4;this.network.resetNetwork();this.playSound("F");}
+		else if (key == '5') {level = 5;this.network.resetNetwork();this.playSound("G");}
+		else if (key == '6') {level = 6;this.network.resetNetwork();this.playSound("A");}
+		else if (key == '7') {level = 7;this.network.resetNetwork();this.playSound("B");}
 		
 		// show episode for now level
 		episode = series.get(level-1);
@@ -145,6 +179,7 @@ public class MainApplet extends PApplet{
 	
 	// add all nodes
 	public void buttonA() {
+		this.playSound("C");
 		for (Character c : episode) {
 			if (!c.getInNetwork()) {
 				network.addNode(c);
@@ -155,29 +190,16 @@ public class MainApplet extends PApplet{
 		
 	// clear nodes
 	public void buttonB() {
-		
+		this.playSound("C");
 		for (Character c : episode) {
 			c.setInNetwork(false);
-			Ani.to(c, (float)1, "x", c.getIniX(),Ani.LINEAR);
-			Ani.to(c, (float)1, "y", c.getIniY(),Ani.LINEAR);
+			Ani.to(c, (float)0.2, "x", c.getIniX(),Ani.LINEAR);
+			Ani.to(c, (float)0.2, "y", c.getIniY(),Ani.LINEAR);
 		}
 		this.network.resetNetwork();
 		this.isDragged = false;
 		this.tmp = null;
 		this.canPutIn = false;
-	}
-	
-	// initialize buttons
-	private void initButton() {
-		cp5 = new ControlP5(this);
-		cp5.addButton("buttonA")
-			.setLabel("Add All Nodes")
-			.setPosition(950, 50)
-			.setSize(200, 50);
-		cp5.addButton("buttonB")
-			.setLabel("Clear All Nodes")
-			.setPosition(950, 130)
-			.setSize(200, 50);
 	}
 
 	private void loadData(){

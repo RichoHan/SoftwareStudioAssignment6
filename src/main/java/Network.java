@@ -56,6 +56,7 @@ public class Network {
 			nodeNum += 1;
 			int x = 0;
 			for(Character node : nodes){
+				
 				node.setY(this.centerY+(float)Math.sin(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				node.setX(this.centerX+(float)Math.cos(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				x+=1;

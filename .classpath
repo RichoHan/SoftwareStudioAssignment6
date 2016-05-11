@@ -2,8 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/user/Documents/SoftwareStudioAssignment6/lib/Ani.jar"/>
-	<classpathentry kind="lib" path="C:/Users/user/Documents/SoftwareStudioAssignment6/lib/controlP5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/user/Documents/SoftwareStudioAssignment6/lib/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/Ani.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/controlP5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/jsminim.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/minim.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/tritonus_aos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Desktop/103062104_Assignment6/lib/tritonus_share.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
