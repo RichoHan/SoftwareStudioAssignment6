@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -19,7 +20,6 @@ public class Network {
 	private ArrayList<Character> nodes;
 	
 	public Network(PApplet parent){
-
 		this.nodes = new ArrayList<Character>();
 		this.parent = parent;
 		this.nodeNum = 0;
@@ -56,7 +56,6 @@ public class Network {
 			nodeNum += 1;
 			int x = 0;
 			for(Character node : nodes){
-				
 				node.setY(this.centerY+(float)Math.sin(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				node.setX(this.centerX+(float)Math.cos(Math.toRadians((double)360/nodeNum)*x)*this.radius);
 				x+=1;

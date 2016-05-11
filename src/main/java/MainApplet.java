@@ -182,8 +182,8 @@ public class MainApplet extends PApplet{
 		this.playSound("C");
 		for (Character c : episode) {
 			if (!c.getInNetwork()) {
-				network.addNode(c);
 				c.setInNetwork(true);
+				network.addNode(c);
 			}
 		}
 	}
@@ -193,8 +193,8 @@ public class MainApplet extends PApplet{
 		this.playSound("C");
 		for (Character c : episode) {
 			c.setInNetwork(false);
-			Ani.to(c, (float)0.2, "x", c.getIniX(),Ani.LINEAR);
-			Ani.to(c, (float)0.2, "y", c.getIniY(),Ani.LINEAR);
+			Ani.to(c, (float)0.2, "x", c.getIniX(), Ani.LINEAR);
+			Ani.to(c, (float)0.2, "y", c.getIniY(), Ani.LINEAR);
 		}
 		this.network.resetNetwork();
 		this.isDragged = false;
