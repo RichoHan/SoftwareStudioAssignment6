@@ -148,6 +148,7 @@ public class MainApplet extends PApplet{
 			tmp = null;
 		}
 		else if(tmp!=null && tmp.getInNetwork()==true){
+			this.playSound("C");
 			network.removeNode(tmp);
 			tmp.setInNetwork(false);
 			tmp.setDragged(false);
