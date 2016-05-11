@@ -4,11 +4,7 @@ import javax.swing.JFrame;
 /**
 * This class is the main class of the program.
 * You can customize different window width and height for your program here. 
-*
-* @author  Richo
-* @version 1.0
-* @since   2016-04-26 
-*/
+**/
 @SuppressWarnings("serial")
 public class Main extends JFrame{
 	
